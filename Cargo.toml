@@ -1,0 +1,17 @@
+[package]
+name = "dynamodb_bulk_edit"
+authors = ["Finn Bear"]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/finnbear/dynamodb_bulk_edit/"
+description = "Bulk rename fields (including nested fields) in a DynamoDB database"
+
+[dependencies]
+aws-config = "0.15"
+aws-sdk-dynamodb = "0.15"
+aws-smithy-types = "0.45"
+structopt = "0.3"
+tokio = {version = "1.19", features = ["full"]}
+lazy_static = "1.4"
+regex = "1.6"
