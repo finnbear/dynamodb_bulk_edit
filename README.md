@@ -2,6 +2,8 @@
 
 Rename fields (including nested fields) in a DynamoDB database
 
+**Please don't use this if you can't tolerate losing or corrupting all your data!**
+
 ## Installation
 
 ```console
@@ -12,11 +14,27 @@ cargo install --git https://github.com/finnbear/dynamodb_bulk_edit
 
 ```console
 # Renames all key1's (at the root level) to key2.
-dynamo_bulk_edit --table test_table --profile aws_profile --replace key1>key2
+dynamo_bulk_edit --table test_table --rename key1>key2
+
+# Renames all key1's (under obj1) to key2.
+dynamo_bulk_edit --table test_table --rename obj1.key1>obj1.key2
 
 # Renames all key1's (at any level) to key2.
-dynamo_bulk_edit --table test_table --profile aws_profile --replace *key1>*key2
+dynamo_bulk_edit --table test_table --rename *key1>*key2
 ```
+
+You can use the `--profile [name]` argument for credentials.
+
+## Features
+
+- Prints a summary of modifications
+- Asks for confirmation before making modifications
+- Performs a conditional check to guard against concurrent modification or deletion of attributes.
+
+## Limitations
+
+- Scans the entire table into memory
+- If new root-level attributes are added concurrently, they will be lost.
 
 ## License
 

@@ -28,7 +28,7 @@ struct Options {
     #[structopt(long)]
     table: String,
     #[structopt(long)]
-    replace: Vec<Replace>,
+    rename: Vec<Replace>,
 }
 
 struct Replace {
@@ -170,7 +170,7 @@ async fn main() {
     let mut dirty = Vec::new();
     for mut row in rows {
         let old = row.clone();
-        replace(String::new(), &mut row, &options.replace, &mut result);
+        replace(String::new(), &mut row, &options.rename, &mut result);
         if old != row {
             dirty.push((old, row));
         }
